@@ -1,3 +1,17 @@
+import sys
+import subprocess
+
+def ensure_package(pkg):
+    try:
+        __import__(pkg)
+    except ImportError:
+        print(f"[INFO] Missing package '{pkg}', installing now...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+        print(f"[INFO] '{pkg}' installed successfully.")
+
+# Ensure astropy is available
+ensure_package("astropy")
+
 import csv
 from datetime import datetime 
 from astropy.coordinates import EarthLocation, SkyCoord
